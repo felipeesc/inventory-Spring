@@ -37,8 +37,8 @@ public class CidadeSerivce implements AbstractService<Cidade> {
 
     @Override
     public void delete(Long code) {
-        cidadeRepository.findById(code).ifPresent(cliente -> {
-            cidadeRepository.delete(cliente);
+        cidadeRepository.findById(code).ifPresent(cidade -> {
+            cidadeRepository.delete(cidade);
         });
     }
 

@@ -39,8 +39,8 @@ public class CategoriaSerivce implements AbstractService<Categoria> {
 
     @Override
     public void delete(Long code) {
-        categoriaRepository.findById(code).ifPresent(cliente -> {
-            categoriaRepository.delete(cliente);
+        categoriaRepository.findById(code).ifPresent(categoria -> {
+            categoriaRepository.delete(categoria);
         });
     }
 

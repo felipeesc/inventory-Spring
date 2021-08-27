@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cidade")
+@RequestMapping("/categoria")
 public class CategoriaController {
 
     @Autowired
