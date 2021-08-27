@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/estoque?useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password:
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  rabbitmq:
+    hostname: localhost
+    host: localhost
+    port: 5672
+    virtualhost: /
+    username: guest
+    password: guest
+
+security:
+  basic:
+    enabled: false
