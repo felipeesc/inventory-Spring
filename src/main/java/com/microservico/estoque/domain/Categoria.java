@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
@@ -17,7 +18,7 @@ public class Categoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_categoria")
-    private Integer codigoCategoria;
+    private Long codigoCategoria;
 
     private String categoria;
 
