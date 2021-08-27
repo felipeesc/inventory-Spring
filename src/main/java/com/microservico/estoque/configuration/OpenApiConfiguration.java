@@ -40,13 +40,4 @@ public class OpenApiConfiguration {
         );
     }
 
-    @Bean
-    public UiConfiguration uiConfig() {
-        return UiConfigurationBuilder.builder()
-                .deepLinking(true)
-                .displayOperationId(false)
-                .showExtensions(false)
-                .filter(false)
-                .build();
-    }
 }
