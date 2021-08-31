@@ -1,7 +1,6 @@
 package com.microservico.estoque.presentation;
 
 import com.microservico.estoque.domain.Categoria;
-import com.microservico.estoque.domain.Cidade;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.CategoriaSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,8 @@ public class CategoriaController {
 
     @GetMapping("/{code}")
     public ResponseEntity<Categoria> findByCode(@PathVariable Long code) {
-        Optional<Categoria> cityReturned = this.categoriaSerivce.findByCode(code);
-        return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Categoria> categoryReturned = this.categoriaSerivce.findByCode(code);
+        return categoryReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -40,7 +39,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Cidade> editCategory(@Valid @RequestBody Categoria categoria) {
+    public ResponseEntity<Categoria> editCategory(@Valid @RequestBody Categoria categoria) {
         Categoria categoryReturned = this.categoriaSerivce.edit(categoria);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Categoria editada.", String.valueOf(categoryReturned.getCodigoCategoria()))).build();
     }
