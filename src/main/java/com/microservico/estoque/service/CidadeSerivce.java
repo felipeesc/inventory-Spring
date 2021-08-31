@@ -47,7 +47,7 @@ public class CidadeSerivce implements AbstractService<Cidade> {
         if (cidadeSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(cidade, cidadeSalva, "code");
+        BeanUtils.copyProperties(cidade, cidadeSalva, "codigoCidade");
         return this.cidadeRepository.save(cidadeSalva.get());
     }
 

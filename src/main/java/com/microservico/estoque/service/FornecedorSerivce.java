@@ -47,7 +47,7 @@ public class FornecedorSerivce implements AbstractService<Fornecedor> {
         if (fornecedorSalvo.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(fornecedor, fornecedorSalvo, "code");
+        BeanUtils.copyProperties(fornecedor, fornecedorSalvo, "codigoFornecedor");
         return this.fornecedorRepository.save(fornecedorSalvo.get());
     }
 

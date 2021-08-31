@@ -47,7 +47,7 @@ public class LojaSerivce implements AbstractService<Loja> {
         if (lojaSalvo.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(loja, lojaSalvo, "code");
+        BeanUtils.copyProperties(loja, lojaSalvo, "codigoLoja");
         return this.lojaRepository.save(lojaSalvo.get());
     }
 

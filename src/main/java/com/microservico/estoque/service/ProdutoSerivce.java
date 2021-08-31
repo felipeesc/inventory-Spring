@@ -47,7 +47,7 @@ public class ProdutoSerivce implements AbstractService<Produto> {
         if (produtoSalvo.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(produto, produtoSalvo, "code");
+        BeanUtils.copyProperties(produto, produtoSalvo, "codigoProduto");
         return this.produtoRepository.save(produtoSalvo.get());
     }
 

@@ -49,7 +49,7 @@ public class CategoriaSerivce implements AbstractService<Categoria> {
         if (categoriaSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(categoria, categoriaSalva, "code");
+        BeanUtils.copyProperties(categoria, categoriaSalva, "codigoCategoria");
         return this.categoriaRepository.save(categoriaSalva.get());
     }
 

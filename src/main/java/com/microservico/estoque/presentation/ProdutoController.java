@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cidade")
+@RequestMapping("/produto")
 public class ProdutoController {
 
     @Autowired
