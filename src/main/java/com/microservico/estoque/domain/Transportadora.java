@@ -19,7 +19,7 @@ public class Transportadora implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_transportadora")
-    private Integer codigoTransportadora;
+    private Long codigoTransportadora;
 
     @ManyToOne
     @JoinColumn(name = "codigoCidade")

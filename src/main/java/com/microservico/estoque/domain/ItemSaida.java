@@ -1,7 +1,9 @@
 package com.microservico.estoque.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +20,7 @@ public class ItemSaida implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_item_saida")
-    private Integer codigoItemSaida;
+    private Long codigoItemSaida;
 
     @ManyToOne
     @JoinColumn(name = "codigo_saida")
