@@ -37,9 +37,7 @@ public class ItemSaidaSerivce implements AbstractService<ItemSaida> {
 
     @Override
     public void delete(Long code) {
-        itemSaidaRepository.findById(code).ifPresent(itemSaida -> {
-            itemSaidaRepository.delete(itemSaida);
-        });
+        itemSaidaRepository.findById(code).ifPresent(itemSaida -> itemSaidaRepository.delete(itemSaida));
     }
 
     public ItemSaida edit(ItemSaida itemSaida) {

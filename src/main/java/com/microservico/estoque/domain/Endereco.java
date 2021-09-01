@@ -1,7 +1,5 @@
 package com.microservico.estoque.domain;
 
-import lombok.Data;
-
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
