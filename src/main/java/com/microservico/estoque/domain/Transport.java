@@ -28,7 +28,7 @@ public class Transport implements Serializable {
     private City cidades;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_entrada")
+    @JoinColumn(name = "codigoEntrada")
     private Input input;
 
     private String transportadora;

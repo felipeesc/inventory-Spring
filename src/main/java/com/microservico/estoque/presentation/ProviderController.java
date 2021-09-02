@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.City;
+import com.microservico.estoque.domain.Provider;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.ProviderSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,16 @@ public class ProviderController {
     private ProviderSerivce providerSerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<City> findByCode(@PathVariable Long code) {
-        Optional<City> cityReturned = this.providerSerivce.findByCode(code);
+    public ResponseEntity<Provider> findByCode(@PathVariable Long code) {
+        Optional<Provider> cityReturned = this.providerSerivce.findByCode(code);
         return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<City> createProvider(@Valid @RequestBody City cidade) {
-        City city = this.providerSerivce.save(cidade);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(city.getCodigoCidade()).toUri();
-        return ResponseEntity.created(uri).body(city);
+    public ResponseEntity<Provider> createProvider(@Valid @RequestBody Provider provider) {
+        Provider save = this.providerSerivce.save(provider);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(save.getCodigoFornecedor()).toUri();
+        return ResponseEntity.created(uri).body(save);
     }
 
     @PostMapping("/{code}")
@@ -39,8 +39,8 @@ public class ProviderController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<City> editProvider(@Valid @RequestBody City city) {
-        City cityReturned = this.providerSerivce.edit(city);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("fornecedor editada.", String.valueOf(cityReturned.getCodigoCidade()))).build();
+    public ResponseEntity<Provider> editProvider(@Valid @RequestBody Provider provider) {
+        Provider providerReturned = this.providerSerivce.edit(provider);
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("fornecedor editada.", String.valueOf(providerReturned.getCodigoFornecedor()))).build();
     }
 }

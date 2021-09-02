@@ -26,7 +26,7 @@ public class Input implements Serializable {
     @Column(name = "codigo_entrada", unique = true)
     private Long codigoEntrada;
 
-    @OneToMany
+    @OneToMany(mappedBy = "codigoTransportadora")
     @Column(name = "codigo_transportadora")
     private List<Transport> transports;
 
