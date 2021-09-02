@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/item-entrada")
-public class ItemEntradaController {
+public class InputItemController {
 
     @Autowired
     private ItemEntradaSerivce itemEntradaSerivce;

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/item-saida")
-public class ItemSaidaController {
+public class OutputItemController {
 
     @Autowired
     private ItemSaidaSerivce itemSaidaSerivce;

@@ -13,8 +13,8 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/fornecedor")
-public class FornecedorController {
+@RequestMapping("/cidade")
+public class CityController {
 
     @Autowired
     private CidadeSerivce cidadeSerivce;
@@ -26,21 +26,21 @@ public class FornecedorController {
     }
 
     @PostMapping
-    public ResponseEntity<Cidade> createProvider(@Valid @RequestBody Cidade cidade) {
+    public ResponseEntity<Cidade> createCity(@Valid @RequestBody Cidade cidade) {
         Cidade city = this.cidadeSerivce.save(cidade);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(city.getCodigoCidade()).toUri();
         return ResponseEntity.created(uri).body(city);
     }
 
     @PostMapping("/{code}")
-    public ResponseEntity<Void> deleteProvider(@PathVariable Long code) {
+    public ResponseEntity<Void> deleteCity(@PathVariable Long code) {
         this.cidadeSerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("fornecedor.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("cidade.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Cidade> editProvider(@Valid @RequestBody Cidade cidade) {
+    public ResponseEntity<Cidade> editCity(@Valid @RequestBody Cidade cidade) {
         Cidade cityReturned = this.cidadeSerivce.edit(cidade);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("fornecedor editada.", String.valueOf(cityReturned.getCodigoCidade()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("cidade editada.", String.valueOf(cityReturned.getCodigoCidade()))).build();
     }
 }

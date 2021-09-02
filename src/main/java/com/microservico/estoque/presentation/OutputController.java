@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/saida")
-public class SaidaController {
+public class OutputController {
 
     @Autowired
     private SaidaSerivce saidaSerivce;

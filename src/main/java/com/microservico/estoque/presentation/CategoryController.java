@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/categoria")
-public class CategoriaController {
+public class CategoryController {
 
     @Autowired
     private CategoriaSerivce categoriaSerivce;
