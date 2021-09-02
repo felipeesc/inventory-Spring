@@ -23,7 +23,7 @@ public class Entrada implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_entrada")
+    @Column(name = "codigo_entrada", unique = true)
     private Long codigoEntrada;
 
     @OneToMany
