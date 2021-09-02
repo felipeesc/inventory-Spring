@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class EntradaSerivce implements AbstractService<Entrada> {
+public class InputSerivce implements AbstractService<Entrada> {
 
     @Autowired
     private EntradaRepository entradaRepository;

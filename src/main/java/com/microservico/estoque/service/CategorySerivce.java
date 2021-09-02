@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class CategoriaSerivce implements AbstractService<Categoria> {
+public class CategorySerivce implements AbstractService<Categoria> {
 
     @Autowired
     private CategoriaRepository categoriaRepository;

@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class SaidaSerivce implements AbstractService<Saida> {
+public class OutputSerivce implements AbstractService<Saida> {
 
     @Autowired
     private SaidaRepository SaidaRepository;

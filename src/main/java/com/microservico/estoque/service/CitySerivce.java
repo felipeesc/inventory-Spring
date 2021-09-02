@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class CidadeSerivce implements AbstractService<Cidade> {
+public class CitySerivce implements AbstractService<Cidade> {
 
     @Autowired
     private CidadeRepository cidadeRepository;

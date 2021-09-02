@@ -2,7 +2,7 @@ package com.microservico.estoque.presentation;
 
 import com.microservico.estoque.domain.ItemSaida;
 import com.microservico.estoque.presentation.util.HeaderUtil;
-import com.microservico.estoque.service.ItemSaidaSerivce;
+import com.microservico.estoque.service.OutputItemSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class OutputItemController {
 
     @Autowired
-    private ItemSaidaSerivce itemSaidaSerivce;
+    private OutputItemSerivce itemSaidaSerivce;
 
     @GetMapping("/{code}")
     public ResponseEntity<ItemSaida> findByCode(@PathVariable Long code) {
