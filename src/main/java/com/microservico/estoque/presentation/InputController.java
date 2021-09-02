@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.Entrada;
+import com.microservico.estoque.domain.Input;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.InputSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,16 @@ public class InputController {
     private InputSerivce inputSerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<Entrada> findByCode(@PathVariable Long code) {
-        Optional<Entrada> entryReturned = this.inputSerivce.findByCode(code);
+    public ResponseEntity<Input> findByCode(@PathVariable Long code) {
+        Optional<Input> entryReturned = this.inputSerivce.findByCode(code);
         return entryReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Entrada> createCity(@Valid @RequestBody Entrada entrada) {
-        Entrada entradaSave = this.inputSerivce.save(entrada);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(entradaSave.getCodigoEntrada()).toUri();
-        return ResponseEntity.created(uri).body(entradaSave);
+    public ResponseEntity<Input> createCity(@Valid @RequestBody Input input) {
+        Input inputSave = this.inputSerivce.save(input);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(inputSave.getCodigoEntrada()).toUri();
+        return ResponseEntity.created(uri).body(inputSave);
     }
 
     @PostMapping("/{code}")
@@ -39,8 +39,8 @@ public class InputController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Entrada> editCity(@Valid @RequestBody Entrada entrada) {
-        Entrada entryReturned = this.inputSerivce.edit(entrada);
+    public ResponseEntity<Input> editCity(@Valid @RequestBody Input input) {
+        Input entryReturned = this.inputSerivce.edit(input);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("entrada editada.", String.valueOf(entryReturned.getCodigoEntrada()))).build();
     }
 }

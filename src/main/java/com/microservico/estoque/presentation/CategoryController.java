@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.Categoria;
+import com.microservico.estoque.domain.Category;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.CategorySerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class CategoryController {
     private CategorySerivce categorySerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<Categoria> findByCode(@PathVariable Long code) {
-        Optional<Categoria> categoryReturned = this.categorySerivce.findByCode(code);
+    public ResponseEntity<Category> findByCode(@PathVariable Long code) {
+        Optional<Category> categoryReturned = this.categorySerivce.findByCode(code);
         return categoryReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> createCategory(@Valid @RequestBody Categoria categoria) {
-        Categoria category = this.categorySerivce.save(categoria);
+    public ResponseEntity<Category> createCategory(@Valid @RequestBody Category categoria) {
+        Category category = this.categorySerivce.save(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(category.getCodigoCategoria()).toUri();
         return ResponseEntity.created(uri).body(category);
     }
@@ -39,8 +39,8 @@ public class CategoryController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Categoria> editCategory(@Valid @RequestBody Categoria categoria) {
-        Categoria categoryReturned = this.categorySerivce.edit(categoria);
+    public ResponseEntity<Category> editCategory(@Valid @RequestBody Category category) {
+        Category categoryReturned = this.categorySerivce.edit(category);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("Categoria editada.", String.valueOf(categoryReturned.getCodigoCategoria()))).build();
     }
 }

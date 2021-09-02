@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.Produto;
+import com.microservico.estoque.domain.Product;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.ProductSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class ProductController {
     private ProductSerivce productSerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<Produto> findByCode(@PathVariable Long code) {
-        Optional<Produto> cityReturned = this.productSerivce.findByCode(code);
+    public ResponseEntity<Product> findByCode(@PathVariable Long code) {
+        Optional<Product> cityReturned = this.productSerivce.findByCode(code);
         return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Produto> createProduct(@Valid @RequestBody Produto produto) {
-        Produto product = this.productSerivce.save(produto);
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product produto) {
+        Product product = this.productSerivce.save(produto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(product.getCodigoProduto()).toUri();
         return ResponseEntity.created(uri).body(product);
     }
@@ -39,8 +39,8 @@ public class ProductController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Produto> editProduct(@Valid @RequestBody Produto produto) {
-        Produto productReturned = this.productSerivce.edit(produto);
+    public ResponseEntity<Product> editProduct(@Valid @RequestBody Product product) {
+        Product productReturned = this.productSerivce.edit(product);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("produto editada.", String.valueOf(productReturned.getCodigoProduto()))).build();
     }
 }

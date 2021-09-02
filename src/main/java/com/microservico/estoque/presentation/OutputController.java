@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.Saida;
+import com.microservico.estoque.domain.Output;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.OutputSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class OutputController {
     private OutputSerivce outputSerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<Saida> findByCode(@PathVariable Long code) {
-        Optional<Saida> exitReturned = this.outputSerivce.findByCode(code);
+    public ResponseEntity<Output> findByCode(@PathVariable Long code) {
+        Optional<Output> exitReturned = this.outputSerivce.findByCode(code);
         return exitReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Saida> createExit(@Valid @RequestBody Saida saida) {
-        Saida exitCreate = this.outputSerivce.save(saida);
+    public ResponseEntity<Output> createExit(@Valid @RequestBody Output output) {
+        Output exitCreate = this.outputSerivce.save(output);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(exitCreate.getCodigoSaida()).toUri();
         return ResponseEntity.created(uri).body(exitCreate);
     }
@@ -39,8 +39,8 @@ public class OutputController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Saida> editExit(@Valid @RequestBody Saida saida) {
-        Saida exitReturned = this.outputSerivce.edit(saida);
+    public ResponseEntity<Output> editExit(@Valid @RequestBody Output output) {
+        Output exitReturned = this.outputSerivce.edit(output);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("saida editada.", String.valueOf(exitReturned.getCodigoSaida()))).build();
     }
 }

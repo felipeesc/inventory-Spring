@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.Loja;
-import com.microservico.estoque.repository.LojaRepository;
+import com.microservico.estoque.domain.Store;
+import com.microservico.estoque.repository.StoreRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class StoreSerivce implements AbstractService<Loja> {
+public class StoreSerivce implements AbstractService<Store> {
 
     @Autowired
-    private LojaRepository lojaRepository;
+    private StoreRepository storeRepository;
 
     @Override
-    public Optional<Loja> findByCode(Long code) {
-        return this.lojaRepository.findById(code);
+    public Optional<Store> findByCode(Long code) {
+        return this.storeRepository.findById(code);
     }
 
     @Override
-    public Collection<Loja> findAll() {
-        return this.lojaRepository.findAll();
+    public Collection<Store> findAll() {
+        return this.storeRepository.findAll();
     }
 
     @Override
-    public Loja save(Loja loja) {
-        return this.lojaRepository.save(loja);
+    public Store save(Store store) {
+        return this.storeRepository.save(store);
     }
 
     @Override
     public void delete(Long code) {
-        lojaRepository.findById(code).ifPresent(loja -> {
-            lojaRepository.delete(loja);
+        storeRepository.findById(code).ifPresent(store -> {
+            storeRepository.delete(store);
         });
     }
 
-    public Loja edit(Loja loja) {
-        Optional<Loja> lojaSalvo = findByCode(loja.getCodigoLoja());
+    public Store edit(Store store) {
+        Optional<Store> lojaSalvo = findByCode(store.getCodigoLoja());
         if (lojaSalvo.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(loja, lojaSalvo, "codigoLoja");
-        return this.lojaRepository.save(lojaSalvo.get());
+        BeanUtils.copyProperties(store, lojaSalvo, "codigoLoja");
+        return this.storeRepository.save(lojaSalvo.get());
     }
 
 }

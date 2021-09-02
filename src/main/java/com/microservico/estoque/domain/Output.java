@@ -18,7 +18,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
 @Table(name = "tb_saida")
-public class Saida implements Serializable {
+public class Output implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_saida")
@@ -26,15 +26,15 @@ public class Saida implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "codigoLoja")
-    private Loja loja;
+    private Store store;
 
     @OneToOne
     @JoinColumn(name = "codigoTransportadora")
-    private Transportadora transportadora;
+    private Transport transport;
 
     @OneToMany
     @JoinColumn(name = "saida")
-    private List<ItemSaida> itemSaidas;
+    private List<OutputItem> outputItems;
 
     private BigDecimal total;
     private BigDecimal frete;

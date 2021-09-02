@@ -18,20 +18,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
 @Table(name = "tb_item_entrada")
-public class ItemEntrada implements Serializable {
+public class InputItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_item_entrada")
     private Long codigoItemEntrada;
 
-    @OneToMany(mappedBy = "itemEntrada")
+    @OneToMany(mappedBy = "inputItem")
     @Column(name = "codigo_produto")
-    private List<Produto> produtos;
+    private List<Product> products;
 
     @OneToOne
     @JoinColumn(name = "itemEntrada")
-    private Entrada entrada;
+    private Input input;
 
     private String lote;
     private Integer quantidade;

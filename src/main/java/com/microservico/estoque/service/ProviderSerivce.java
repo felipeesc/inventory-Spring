@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.Fornecedor;
-import com.microservico.estoque.repository.FornecedorRepository;
+import com.microservico.estoque.domain.Provider;
+import com.microservico.estoque.repository.ProviderRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class ProviderSerivce implements AbstractService<Fornecedor> {
+public class ProviderSerivce implements AbstractService<Provider> {
 
     @Autowired
-    private FornecedorRepository fornecedorRepository;
+    private ProviderRepository providerRepository;
 
     @Override
-    public Optional<Fornecedor> findByCode(Long code) {
-        return this.fornecedorRepository.findById(code);
+    public Optional<Provider> findByCode(Long code) {
+        return this.providerRepository.findById(code);
     }
 
     @Override
-    public Collection<Fornecedor> findAll() {
-        return this.fornecedorRepository.findAll();
+    public Collection<Provider> findAll() {
+        return this.providerRepository.findAll();
     }
 
     @Override
-    public Fornecedor save(Fornecedor fornecedor) {
-        return this.fornecedorRepository.save(fornecedor);
+    public Provider save(Provider provider) {
+        return this.providerRepository.save(provider);
     }
 
     @Override
     public void delete(Long code) {
-        fornecedorRepository.findById(code).ifPresent(fornecedor -> {
-            fornecedorRepository.delete(fornecedor);
+        providerRepository.findById(code).ifPresent(provider -> {
+            providerRepository.delete(provider);
         });
     }
 
-    public Fornecedor edit(Fornecedor fornecedor) {
-        Optional<Fornecedor> fornecedorSalvo = findByCode(fornecedor.getCodigoFornecedor());
+    public Provider edit(Provider provider) {
+        Optional<Provider> fornecedorSalvo = findByCode(provider.getCodigoFornecedor());
         if (fornecedorSalvo.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(fornecedor, fornecedorSalvo, "codigoFornecedor");
-        return this.fornecedorRepository.save(fornecedorSalvo.get());
+        BeanUtils.copyProperties(provider, fornecedorSalvo, "codigoFornecedor");
+        return this.providerRepository.save(fornecedorSalvo.get());
     }
 
 }

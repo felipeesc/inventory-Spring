@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.Saida;
-import com.microservico.estoque.repository.SaidaRepository;
+import com.microservico.estoque.domain.Output;
+import com.microservico.estoque.repository.OutputRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class OutputSerivce implements AbstractService<Saida> {
+public class OutputSerivce implements AbstractService<Output> {
 
     @Autowired
-    private SaidaRepository SaidaRepository;
+    private OutputRepository OutputRepository;
 
     @Override
-    public Optional<Saida> findByCode(Long code) {
-        return this.SaidaRepository.findById(code);
+    public Optional<Output> findByCode(Long code) {
+        return this.OutputRepository.findById(code);
     }
 
     @Override
-    public Collection<Saida> findAll() {
-        return this.SaidaRepository.findAll();
+    public Collection<Output> findAll() {
+        return this.OutputRepository.findAll();
     }
 
     @Override
-    public Saida save(Saida saida) {
-        return this.SaidaRepository.save(saida);
+    public Output save(Output output) {
+        return this.OutputRepository.save(output);
     }
 
     @Override
     public void delete(Long code) {
-        SaidaRepository.findById(code).ifPresent(saida -> {
-            SaidaRepository.delete(saida);
+        OutputRepository.findById(code).ifPresent(output -> {
+            OutputRepository.delete(output);
         });
     }
 
-    public Saida edit(Saida saida) {
-        Optional<Saida> saidaSalva = findByCode(saida.getCodigoSaida());
+    public Output edit(Output output) {
+        Optional<Output> saidaSalva = findByCode(output.getCodigoSaida());
         if (saidaSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(saida, saidaSalva, "codigoSaida");
-        return this.SaidaRepository.save(saidaSalva.get());
+        BeanUtils.copyProperties(output, saidaSalva, "codigoSaida");
+        return this.OutputRepository.save(saidaSalva.get());
     }
 
 }

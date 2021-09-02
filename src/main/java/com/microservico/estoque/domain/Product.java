@@ -16,7 +16,7 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
 @Table(name = "tb_produto")
-public class Produto implements Serializable {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,19 +26,19 @@ public class Produto implements Serializable {
     //owner
     @ManyToOne
     @JoinColumn(name ="codigo_categoria")
-    private Categoria categoria;
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "codigo_fornecedor")
-    private Fornecedor fornecedor;
+    private Provider provider;
 
     @ManyToOne
     @JoinColumn(name = "produtos")
-    private ItemEntrada itemEntrada;
+    private InputItem inputItem;
 
     @OneToOne
     @JoinColumn(name = "produto")
-    private ItemSaida itemSaida;
+    private OutputItem outputItem;
 
     private String descricao;
     private Double peso;

@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.ItemSaida;
-import com.microservico.estoque.repository.ItemSaidaRepository;
+import com.microservico.estoque.domain.OutputItem;
+import com.microservico.estoque.repository.OutputItemRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,38 +15,38 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class OutputItemSerivce implements AbstractService<ItemSaida> {
+public class OutputItemSerivce implements AbstractService<OutputItem> {
 
     @Autowired
-    private ItemSaidaRepository itemSaidaRepository;
+    private OutputItemRepository outputItemRepository;
 
     @Override
-    public Optional<ItemSaida> findByCode(Long code) {
-        return this.itemSaidaRepository.findById(code);
+    public Optional<OutputItem> findByCode(Long code) {
+        return this.outputItemRepository.findById(code);
     }
 
     @Override
-    public Collection<ItemSaida> findAll() {
-        return this.itemSaidaRepository.findAll();
+    public Collection<OutputItem> findAll() {
+        return this.outputItemRepository.findAll();
     }
 
     @Override
-    public ItemSaida save(ItemSaida itemEntrada) {
-        return this.itemSaidaRepository.save(itemEntrada);
+    public OutputItem save(OutputItem itemEntrada) {
+        return this.outputItemRepository.save(itemEntrada);
     }
 
     @Override
     public void delete(Long code) {
-        itemSaidaRepository.findById(code).ifPresent(itemSaida -> itemSaidaRepository.delete(itemSaida));
+        outputItemRepository.findById(code).ifPresent(itemSaida -> outputItemRepository.delete(itemSaida));
     }
 
-    public ItemSaida edit(ItemSaida itemSaida) {
-        Optional<ItemSaida> itemSaidaSalva = findByCode(itemSaida.getCodigoItemSaida());
+    public OutputItem edit(OutputItem outputItem) {
+        Optional<OutputItem> itemSaidaSalva = findByCode(outputItem.getCodigoItemSaida());
         if (itemSaidaSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(itemSaida, itemSaidaSalva, "codigoItemSaida");
-        return this.itemSaidaRepository.save(itemSaidaSalva.get());
+        BeanUtils.copyProperties(outputItem, itemSaidaSalva, "codigoItemSaida");
+        return this.outputItemRepository.save(itemSaidaSalva.get());
     }
 
 }

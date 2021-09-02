@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Embeddable
-public class Endereco implements Serializable {
+public class Address implements Serializable {
 
     @NotBlank
     private String endereço;

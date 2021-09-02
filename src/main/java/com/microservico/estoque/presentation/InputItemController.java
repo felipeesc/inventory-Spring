@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.ItemEntrada;
+import com.microservico.estoque.domain.InputItem;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.InputItemSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,16 @@ public class InputItemController {
     private InputItemSerivce inputItemSerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<ItemEntrada> findByCode(@PathVariable Long code) {
-        Optional<ItemEntrada> cityReturned = this.inputItemSerivce.findByCode(code);
+    public ResponseEntity<InputItem> findByCode(@PathVariable Long code) {
+        Optional<InputItem> cityReturned = this.inputItemSerivce.findByCode(code);
         return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<ItemEntrada> createItem(@Valid @RequestBody ItemEntrada item) {
-        ItemEntrada itemEntrada = this.inputItemSerivce.save(item);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(itemEntrada.getCodigoItemEntrada()).toUri();
-        return ResponseEntity.created(uri).body(itemEntrada);
+    public ResponseEntity<InputItem> createItem(@Valid @RequestBody InputItem item) {
+        InputItem inputItem = this.inputItemSerivce.save(item);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(inputItem.getCodigoItemEntrada()).toUri();
+        return ResponseEntity.created(uri).body(inputItem);
     }
 
     @PostMapping("/{code}")
@@ -39,8 +39,8 @@ public class InputItemController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<ItemEntrada> editItem(@Valid @RequestBody ItemEntrada itemEntrada) {
-        ItemEntrada itemReturned = this.inputItemSerivce.edit(itemEntrada);
+    public ResponseEntity<InputItem> editItem(@Valid @RequestBody InputItem inputItem) {
+        InputItem itemReturned = this.inputItemSerivce.edit(inputItem);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("item-entrada editada.", String.valueOf(itemReturned.getCodigoItemEntrada()))).build();
     }
 }

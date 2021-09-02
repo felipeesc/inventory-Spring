@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.Entrada;
-import com.microservico.estoque.repository.EntradaRepository;
+import com.microservico.estoque.domain.Input;
+import com.microservico.estoque.repository.InputRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class InputSerivce implements AbstractService<Entrada> {
+public class InputSerivce implements AbstractService<Input> {
 
     @Autowired
-    private EntradaRepository entradaRepository;
+    private InputRepository inputRepository;
 
     @Override
-    public Optional<Entrada> findByCode(Long code) {
-        return this.entradaRepository.findById(code);
+    public Optional<Input> findByCode(Long code) {
+        return this.inputRepository.findById(code);
     }
 
     @Override
-    public Collection<Entrada> findAll() {
-        return this.entradaRepository.findAll();
+    public Collection<Input> findAll() {
+        return this.inputRepository.findAll();
     }
 
     @Override
-    public Entrada save(Entrada entrada) {
-        return this.entradaRepository.save(entrada);
+    public Input save(Input input) {
+        return this.inputRepository.save(input);
     }
 
     @Override
     public void delete(Long code) {
-        entradaRepository.findById(code).ifPresent(entrada -> {
-            entradaRepository.delete(entrada);
+        inputRepository.findById(code).ifPresent(entrada -> {
+            inputRepository.delete(entrada);
         });
     }
 
-    public Entrada edit(Entrada entrada) {
-        Optional<Entrada> entradaSalva = findByCode(entrada.getCodigoEntrada());
+    public Input edit(Input input) {
+        Optional<Input> entradaSalva = findByCode(input.getCodigoEntrada());
         if (entradaSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(entrada, entradaSalva, "codigoEntrada");
-        return this.entradaRepository.save(entradaSalva.get());
+        BeanUtils.copyProperties(input, entradaSalva, "codigoEntrada");
+        return this.inputRepository.save(entradaSalva.get());
     }
 
 }

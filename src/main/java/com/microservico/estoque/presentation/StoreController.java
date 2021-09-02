@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.Loja;
+import com.microservico.estoque.domain.Store;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.StoreSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,16 @@ public class StoreController {
     private StoreSerivce storeSerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<Loja> findByCode(@PathVariable Long code) {
-        Optional<Loja> cityReturned = this.storeSerivce.findByCode(code);
+    public ResponseEntity<Store> findByCode(@PathVariable Long code) {
+        Optional<Store> cityReturned = this.storeSerivce.findByCode(code);
         return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Loja> createProduct(@Valid @RequestBody Loja loja) {
-        Loja lojaCreate = this.storeSerivce.save(loja);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(lojaCreate.getCodigoLoja()).toUri();
-        return ResponseEntity.created(uri).body(lojaCreate);
+    public ResponseEntity<Store> createProduct(@Valid @RequestBody Store store) {
+        Store storeCreate = this.storeSerivce.save(store);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(storeCreate.getCodigoLoja()).toUri();
+        return ResponseEntity.created(uri).body(storeCreate);
     }
 
     @PostMapping("/{code}")
@@ -39,8 +39,8 @@ public class StoreController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Loja> editProduct(@Valid @RequestBody Loja loja) {
-        Loja lojaReturned = this.storeSerivce.edit(loja);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("loja editada.", String.valueOf(lojaReturned.getCodigoLoja()))).build();
+    public ResponseEntity<Store> editProduct(@Valid @RequestBody Store store) {
+        Store storeReturned = this.storeSerivce.edit(store);
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("loja editada.", String.valueOf(storeReturned.getCodigoLoja()))).build();
     }
 }

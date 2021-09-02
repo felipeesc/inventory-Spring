@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.Cidade;
+import com.microservico.estoque.domain.City;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.CitySerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class CityController {
     private CitySerivce citySerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<Cidade> findByCode(@PathVariable Long code) {
-        Optional<Cidade> cityReturned = this.citySerivce.findByCode(code);
+    public ResponseEntity<City> findByCode(@PathVariable Long code) {
+        Optional<City> cityReturned = this.citySerivce.findByCode(code);
         return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Cidade> createCity(@Valid @RequestBody Cidade cidade) {
-        Cidade city = this.citySerivce.save(cidade);
+    public ResponseEntity<City> createCity(@Valid @RequestBody City cidade) {
+        City city = this.citySerivce.save(cidade);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(city.getCodigoCidade()).toUri();
         return ResponseEntity.created(uri).body(city);
     }
@@ -39,8 +39,8 @@ public class CityController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Cidade> editCity(@Valid @RequestBody Cidade cidade) {
-        Cidade cityReturned = this.citySerivce.edit(cidade);
+    public ResponseEntity<City> editCity(@Valid @RequestBody City city) {
+        City cityReturned = this.citySerivce.edit(city);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("cidade editada.", String.valueOf(cityReturned.getCodigoCidade()))).build();
     }
 }

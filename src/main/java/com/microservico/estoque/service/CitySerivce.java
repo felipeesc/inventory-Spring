@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.Cidade;
-import com.microservico.estoque.repository.CidadeRepository;
+import com.microservico.estoque.domain.City;
+import com.microservico.estoque.repository.CityRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class CitySerivce implements AbstractService<Cidade> {
+public class CitySerivce implements AbstractService<City> {
 
     @Autowired
-    private CidadeRepository cidadeRepository;
+    private CityRepository cityRepository;
 
     @Override
-    public Optional<Cidade> findByCode(Long code) {
-        return this.cidadeRepository.findById(code);
+    public Optional<City> findByCode(Long code) {
+        return this.cityRepository.findById(code);
     }
 
     @Override
-    public Collection<Cidade> findAll() {
-        return this.cidadeRepository.findAll();
+    public Collection<City> findAll() {
+        return this.cityRepository.findAll();
     }
 
     @Override
-    public Cidade save(Cidade cidade) {
-        return this.cidadeRepository.save(cidade);
+    public City save(City city) {
+        return this.cityRepository.save(city);
     }
 
     @Override
     public void delete(Long code) {
-        cidadeRepository.findById(code).ifPresent(cidade -> {
-            cidadeRepository.delete(cidade);
+        cityRepository.findById(code).ifPresent(cidade -> {
+            cityRepository.delete(cidade);
         });
     }
 
-    public Cidade edit(Cidade cidade) {
-        Optional<Cidade> cidadeSalva = findByCode(cidade.getCodigoCidade());
+    public City edit(City city) {
+        Optional<City> cidadeSalva = findByCode(city.getCodigoCidade());
         if (cidadeSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(cidade, cidadeSalva, "codigoCidade");
-        return this.cidadeRepository.save(cidadeSalva.get());
+        BeanUtils.copyProperties(city, cidadeSalva, "codigoCidade");
+        return this.cityRepository.save(cidadeSalva.get());
     }
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
 @Table(name = "tb_fornecedor")
-public class Fornecedor implements Serializable {
+public class Provider implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,15 +26,15 @@ public class Fornecedor implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "codigo_cidade")
-    private Cidade cidade;
+    private City city;
 
-    @OneToMany(mappedBy = "fornecedor")
-    private List<Produto> produtos;
+    @OneToMany(mappedBy = "provider")
+    private List<Product> products;
 
     private String fornecedor;
 
     @Embedded
-    private Endereco endereco;
+    private Address address;
 
 
 }

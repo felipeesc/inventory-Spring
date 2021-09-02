@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.ItemEntrada;
-import com.microservico.estoque.repository.ItemEntradaRepository;
+import com.microservico.estoque.domain.InputItem;
+import com.microservico.estoque.repository.InputItemRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class InputItemSerivce implements AbstractService<ItemEntrada> {
+public class InputItemSerivce implements AbstractService<InputItem> {
 
     @Autowired
-    private ItemEntradaRepository itemEntradaRepository;
+    private InputItemRepository inputItemRepository;
 
     @Override
-    public Optional<ItemEntrada> findByCode(Long code) {
-        return this.itemEntradaRepository.findById(code);
+    public Optional<InputItem> findByCode(Long code) {
+        return this.inputItemRepository.findById(code);
     }
 
     @Override
-    public Collection<ItemEntrada> findAll() {
-        return this.itemEntradaRepository.findAll();
+    public Collection<InputItem> findAll() {
+        return this.inputItemRepository.findAll();
     }
 
     @Override
-    public ItemEntrada save(ItemEntrada itemEntrada) {
-        return this.itemEntradaRepository.save(itemEntrada);
+    public InputItem save(InputItem inputItem) {
+        return this.inputItemRepository.save(inputItem);
     }
 
     @Override
     public void delete(Long code) {
-        itemEntradaRepository.findById(code).ifPresent(itemEntrada -> {
-            itemEntradaRepository.delete(itemEntrada);
+        inputItemRepository.findById(code).ifPresent(itemEntrada -> {
+            inputItemRepository.delete(itemEntrada);
         });
     }
 
-    public ItemEntrada edit(ItemEntrada itemEntrada) {
-        Optional<ItemEntrada> itemEntradaSalva = findByCode(itemEntrada.getCodigoItemEntrada());
+    public InputItem edit(InputItem inputItem) {
+        Optional<InputItem> itemEntradaSalva = findByCode(inputItem.getCodigoItemEntrada());
         if (itemEntradaSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(itemEntrada, itemEntradaSalva, "codigoItemEntrada");
-        return this.itemEntradaRepository.save(itemEntradaSalva.get());
+        BeanUtils.copyProperties(inputItem, itemEntradaSalva, "codigoItemEntrada");
+        return this.inputItemRepository.save(itemEntradaSalva.get());
     }
 
 }

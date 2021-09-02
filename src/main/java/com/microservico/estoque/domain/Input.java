@@ -19,7 +19,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
 @Table(name = "tb_entrada")
-public class Entrada implements Serializable {
+public class Input implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class Entrada implements Serializable {
 
     @OneToMany
     @Column(name = "codigo_transportadora")
-    private List<Transportadora> transportadoras;
+    private List<Transport> transports;
 
-    @OneToOne(mappedBy = "entrada")
-    private ItemEntrada itemEntrada;
+    @OneToOne(mappedBy = "input")
+    private InputItem inputItem;
 
     @Column(name = "data_pedido")
     private LocalDateTime dataPedido;

@@ -1,7 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.Produto;
-import com.microservico.estoque.repository.ProdutoRepository;
+import com.microservico.estoque.domain.Product;
+import com.microservico.estoque.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -15,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class ProductSerivce implements AbstractService<Produto> {
+public class ProductSerivce implements AbstractService<Product> {
 
     @Autowired
-    private ProdutoRepository produtoRepository;
+    private ProductRepository productRepository;
 
     @Override
-    public Optional<Produto> findByCode(Long code) {
-        return this.produtoRepository.findById(code);
+    public Optional<Product> findByCode(Long code) {
+        return this.productRepository.findById(code);
     }
 
     @Override
-    public Collection<Produto> findAll() {
-        return this.produtoRepository.findAll();
+    public Collection<Product> findAll() {
+        return this.productRepository.findAll();
     }
 
     @Override
-    public Produto save(Produto produto) {
-        return this.produtoRepository.save(produto);
+    public Product save(Product product) {
+        return this.productRepository.save(product);
     }
 
     @Override
     public void delete(Long code) {
-        produtoRepository.findById(code).ifPresent(produto -> {
-            produtoRepository.delete(produto);
+        productRepository.findById(code).ifPresent(produto -> {
+            productRepository.delete(produto);
         });
     }
 
-    public Produto edit(Produto produto) {
-        Optional<Produto> produtoSalvo = findByCode(produto.getCodigoProduto());
+    public Product edit(Product product) {
+        Optional<Product> produtoSalvo = findByCode(product.getCodigoProduto());
         if (produtoSalvo.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(produto, produtoSalvo, "codigoProduto");
-        return this.produtoRepository.save(produtoSalvo.get());
+        BeanUtils.copyProperties(product, produtoSalvo, "codigoProduto");
+        return this.productRepository.save(produtoSalvo.get());
     }
 
 }

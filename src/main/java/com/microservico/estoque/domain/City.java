@@ -4,22 +4,25 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
-@Table(name = "tb_categoria")
-public class Categoria implements Serializable {
+@Table(name = "tb_cidade")
+public class City implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_categoria")
-    private Long codigoCategoria;
+    @Column(name = "codigo_cidade")
+    private Long codigoCidade;
 
-    private String categoria;
+    @NotBlank
+    private String cidade;
+
 
 }

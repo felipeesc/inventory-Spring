@@ -1,6 +1,6 @@
 package com.microservico.estoque.presentation;
 
-import com.microservico.estoque.domain.Cidade;
+import com.microservico.estoque.domain.City;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.ProviderSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,14 @@ public class ProviderController {
     private ProviderSerivce providerSerivce;
 
     @GetMapping("/{code}")
-    public ResponseEntity<Cidade> findByCode(@PathVariable Long code) {
-        Optional<Cidade> cityReturned = this.providerSerivce.findByCode(code);
+    public ResponseEntity<City> findByCode(@PathVariable Long code) {
+        Optional<City> cityReturned = this.providerSerivce.findByCode(code);
         return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Cidade> createProvider(@Valid @RequestBody Cidade cidade) {
-        Cidade city = this.providerSerivce.save(cidade);
+    public ResponseEntity<City> createProvider(@Valid @RequestBody City cidade) {
+        City city = this.providerSerivce.save(cidade);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(city.getCodigoCidade()).toUri();
         return ResponseEntity.created(uri).body(city);
     }
@@ -39,8 +39,8 @@ public class ProviderController {
     }
 
     @PutMapping("/{code}")
-    public ResponseEntity<Cidade> editProvider(@Valid @RequestBody Cidade cidade) {
-        Cidade cityReturned = this.providerSerivce.edit(cidade);
+    public ResponseEntity<City> editProvider(@Valid @RequestBody City city) {
+        City cityReturned = this.providerSerivce.edit(city);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("fornecedor editada.", String.valueOf(cityReturned.getCodigoCidade()))).build();
     }
 }

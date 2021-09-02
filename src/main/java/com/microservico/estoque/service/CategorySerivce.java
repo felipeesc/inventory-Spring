@@ -1,9 +1,7 @@
 package com.microservico.estoque.service;
 
-import com.microservico.estoque.domain.Categoria;
-import com.microservico.estoque.domain.Cidade;
-import com.microservico.estoque.repository.CategoriaRepository;
-import com.microservico.estoque.repository.CidadeRepository;
+import com.microservico.estoque.domain.Category;
+import com.microservico.estoque.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -17,40 +15,40 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class CategorySerivce implements AbstractService<Categoria> {
+public class CategorySerivce implements AbstractService<Category> {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoryRepository categoryRepository;
 
     @Override
-    public Optional<Categoria> findByCode(Long code) {
-        return this.categoriaRepository.findById(code);
+    public Optional<Category> findByCode(Long code) {
+        return this.categoryRepository.findById(code);
     }
 
     @Override
-    public Collection<Categoria> findAll() {
-        return this.categoriaRepository.findAll();
+    public Collection<Category> findAll() {
+        return this.categoryRepository.findAll();
     }
 
     @Override
-    public Categoria save(Categoria cidade) {
-        return this.categoriaRepository.save(cidade);
+    public Category save(Category cidade) {
+        return this.categoryRepository.save(cidade);
     }
 
     @Override
     public void delete(Long code) {
-        categoriaRepository.findById(code).ifPresent(categoria -> {
-            categoriaRepository.delete(categoria);
+        categoryRepository.findById(code).ifPresent(category -> {
+            categoryRepository.delete(category);
         });
     }
 
-    public Categoria edit(Categoria categoria) {
-        Optional<Categoria> categoriaSalva = findByCode(categoria.getCodigoCategoria());
+    public Category edit(Category category) {
+        Optional<Category> categoriaSalva = findByCode(category.getCodigoCategoria());
         if (categoriaSalva.get() == null) {
             throw new EmptyResultDataAccessException(1);
         }
-        BeanUtils.copyProperties(categoria, categoriaSalva, "codigoCategoria");
-        return this.categoriaRepository.save(categoriaSalva.get());
+        BeanUtils.copyProperties(category, categoriaSalva, "codigoCategoria");
+        return this.categoryRepository.save(categoriaSalva.get());
     }
 
 }

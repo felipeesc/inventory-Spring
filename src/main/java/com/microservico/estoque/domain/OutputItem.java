@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
 @Table(name = "tb_item_saida")
-public class ItemSaida implements Serializable {
+public class OutputItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,10 @@ public class ItemSaida implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "codigo_saida")
-    private Saida saida;
+    private Output output;
 
-    @OneToOne(mappedBy = "itemSaida")
-    private Produto produto;
+    @OneToOne(mappedBy = "outputItem")
+    private Product product;
 
     private String lote;
     private Integer quantidade;
