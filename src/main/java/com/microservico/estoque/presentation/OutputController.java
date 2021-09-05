@@ -35,12 +35,12 @@ public class OutputController {
     @PostMapping("/{code}")
     public ResponseEntity<Void> deleteExit(@PathVariable Long code) {
         this.outputSerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("saida.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("output.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     public ResponseEntity<Output> editExit(@Valid @RequestBody Output output) {
         Output exitReturned = this.outputSerivce.edit(output);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("saida editada.", String.valueOf(exitReturned.getCodigoSaida()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("output.edit.", String.valueOf(exitReturned.getCodigoSaida()))).build();
     }
 }

@@ -35,12 +35,12 @@ public class CityController {
     @PostMapping("/{code}")
     public ResponseEntity<Void> deleteCity(@PathVariable Long code) {
         this.citySerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("cidade.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("city.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     public ResponseEntity<City> editCity(@Valid @RequestBody City city) {
         City cityReturned = this.citySerivce.edit(city);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("cidade editada.", String.valueOf(cityReturned.getCodigoCidade()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("city.edit.", String.valueOf(cityReturned.getCodigoCidade()))).build();
     }
 }

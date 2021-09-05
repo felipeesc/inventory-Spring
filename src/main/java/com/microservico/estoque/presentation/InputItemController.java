@@ -35,12 +35,12 @@ public class InputItemController {
     @PostMapping("/{code}")
     public ResponseEntity<Void> deleteItem(@PathVariable Long code) {
         this.inputItemSerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("item-entrada.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("input-item.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     public ResponseEntity<InputItem> editItem(@Valid @RequestBody InputItem inputItem) {
         InputItem itemReturned = this.inputItemSerivce.edit(inputItem);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("item-entrada editada.", String.valueOf(itemReturned.getCodigoItemEntrada()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("input-item.editada.", String.valueOf(itemReturned.getCodigoItemEntrada()))).build();
     }
 }

@@ -35,12 +35,12 @@ public class CategoryController {
     @PostMapping("/{code}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long code) {
         this.categorySerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("categoria.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("category.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     public ResponseEntity<Category> editCategory(@Valid @RequestBody Category category) {
         Category categoryReturned = this.categorySerivce.edit(category);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("Categoria editada.", String.valueOf(categoryReturned.getCodigoCategoria()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("category.edit.", String.valueOf(categoryReturned.getCodigoCategoria()))).build();
     }
 }
