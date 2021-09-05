@@ -41,6 +41,6 @@ public class InputController {
     @PutMapping("/{code}")
     public ResponseEntity<Input> editCity(@Valid @RequestBody Input input) {
         Input entryReturned = this.inputSerivce.edit(input);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("input.edit.", String.valueOf(entryReturned.getCodigoEntrada()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("input.edited.", String.valueOf(entryReturned.getCodigoEntrada()))).build();
     }
 }

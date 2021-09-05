@@ -41,6 +41,6 @@ public class InputItemController {
     @PutMapping("/{code}")
     public ResponseEntity<InputItem> editItem(@Valid @RequestBody InputItem inputItem) {
         InputItem itemReturned = this.inputItemSerivce.edit(inputItem);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("input-item.editada.", String.valueOf(itemReturned.getCodigoItemEntrada()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("input-item.edited.", String.valueOf(itemReturned.getCodigoItemEntrada()))).build();
     }
 }

@@ -41,6 +41,6 @@ public class OutputController {
     @PutMapping("/{code}")
     public ResponseEntity<Output> editExit(@Valid @RequestBody Output output) {
         Output exitReturned = this.outputSerivce.edit(output);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("output.edit.", String.valueOf(exitReturned.getCodigoSaida()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("output.edited.", String.valueOf(exitReturned.getCodigoSaida()))).build();
     }
 }

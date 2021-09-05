@@ -41,6 +41,6 @@ public class CityController {
     @PutMapping("/{code}")
     public ResponseEntity<City> editCity(@Valid @RequestBody City city) {
         City cityReturned = this.citySerivce.edit(city);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("city.edit.", String.valueOf(cityReturned.getCodigoCidade()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("city.edited.", String.valueOf(cityReturned.getCodigoCidade()))).build();
     }
 }

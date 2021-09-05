@@ -35,12 +35,12 @@ public class ProductController {
     @PostMapping("/{code}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long code) {
         this.productSerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("produto.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("product.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     public ResponseEntity<Product> editProduct(@Valid @RequestBody Product product) {
         Product productReturned = this.productSerivce.edit(product);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("produto editada.", String.valueOf(productReturned.getCodigoProduto()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("product.edited.", String.valueOf(productReturned.getCodigoProduto()))).build();
     }
 }

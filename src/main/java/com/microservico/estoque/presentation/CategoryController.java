@@ -41,6 +41,6 @@ public class CategoryController {
     @PutMapping("/{code}")
     public ResponseEntity<Category> editCategory(@Valid @RequestBody Category category) {
         Category categoryReturned = this.categorySerivce.edit(category);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("category.edit.", String.valueOf(categoryReturned.getCodigoCategoria()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("category.edited.", String.valueOf(categoryReturned.getCodigoCategoria()))).build();
     }
 }

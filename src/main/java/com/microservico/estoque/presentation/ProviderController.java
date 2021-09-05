@@ -35,12 +35,12 @@ public class ProviderController {
     @PostMapping("/{code}")
     public ResponseEntity<Void> deleteProvider(@PathVariable Long code) {
         this.providerSerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("fornecedor.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("provider.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     public ResponseEntity<Provider> editProvider(@Valid @RequestBody Provider provider) {
         Provider providerReturned = this.providerSerivce.edit(provider);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("fornecedor editada.", String.valueOf(providerReturned.getCodigoFornecedor()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("provider.edited", String.valueOf(providerReturned.getCodigoFornecedor()))).build();
     }
 }

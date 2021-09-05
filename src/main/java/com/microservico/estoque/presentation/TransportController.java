@@ -35,12 +35,12 @@ public class TransportController {
     @PostMapping("/{code}")
     public ResponseEntity<Void> deleteTransport(@PathVariable Long code) {
         this.transportSerivce.delete(code);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("transporte.removed", String.valueOf(code))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("transport.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     public ResponseEntity<Transport> editTransport(@Valid @RequestBody Transport transport) {
         Transport transportReturned = this.transportSerivce.edit(transport);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert("transporte editada.", String.valueOf(transportReturned.getCodigoTransportadora()))).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createAlert("transport.edited", String.valueOf(transportReturned.getCodigoTransportadora()))).build();
     }
 }
