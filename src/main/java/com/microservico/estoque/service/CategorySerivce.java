@@ -1,9 +1,11 @@
 package com.microservico.estoque.service;
 
+import com.microservico.estoque.common.RabbitmqConstantes;
 import com.microservico.estoque.domain.Category;
 import com.microservico.estoque.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,7 +22,11 @@ public class CategorySerivce implements AbstractService<Category> {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private RabbitMQExchange exchange;
+
     @Override
+    @RabbitListener(queues = RabbitmqConstantes.QUEUE_CATEGORY)
     public Optional<Category> findByCode(Long code) {
         return this.categoryRepository.findById(code);
     }
