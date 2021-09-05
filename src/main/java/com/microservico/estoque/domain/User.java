@@ -5,6 +5,7 @@ import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -24,8 +25,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "user_code", sequenceName = "user_code", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long code;
 
     @NotBlank
@@ -33,6 +33,7 @@ public class User implements Serializable {
     @Column(name = "login", unique = true, nullable = false)
     private String login;
 
+    @Setter
     @NotBlank
     @Column(name = "password", nullable = false)
     private String password;
@@ -70,7 +71,7 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        var user = (com.microservico.estoque.domain.User) o;
         return Objects.equal(code, user.code);
     }
 

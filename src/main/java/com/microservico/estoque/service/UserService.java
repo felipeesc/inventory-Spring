@@ -4,6 +4,7 @@ import com.microservico.estoque.domain.User;
 import com.microservico.estoque.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,15 +30,16 @@ public class UserService implements AbstractService<User> {
 
     @Override
     public User save(User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         return this.userRepository.save(user);
     }
 
 
     @Override
     public void delete(Long code) {
-        userRepository.findById(code).ifPresent(usuario -> {
-            userRepository.delete(usuario);
-        });
+        userRepository.findById(code).ifPresent(usuario ->
+                userRepository.delete(usuario)
+        );
     }
 
     public Optional<User> buscarPorLogin(String login) {

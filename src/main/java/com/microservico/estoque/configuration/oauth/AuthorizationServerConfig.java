@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -24,26 +25,31 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    @Qualifier("appUserDetailsService")
+    private UserDetailsService userDetailsService;
+
+    @Autowired
     private CorsFilter corsFilter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("estoque")
-                .secret("$2a$12$jVNR8L.BU2enIFNVOiD0IesYTc8lDnAEneQDLc5HCqvubtw8mJvWO")
-                .scopes("read", "write")
-                .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(900)
-                .refreshTokenValiditySeconds(1800);
+            .withClient("estoque")
+            .secret("{noop}$2a$12$jVNR8L.BU2enIFNVOiD0IesYTc8lDnAEneQDLc5HCqvubtw8mJvWO")
+            .scopes("read", "write")
+            .authorizedGrantTypes("password", "refresh_token")
+            .accessTokenValiditySeconds(900)
+            .refreshTokenValiditySeconds(1800);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
-                .tokenStore(tokenStore())
-                .accessTokenConverter(accessTokenConverter())
-                .reuseRefreshTokens(false)
-                .authenticationManager(authenticationManager);
+            .tokenStore(tokenStore())
+            .accessTokenConverter(accessTokenConverter())
+            .reuseRefreshTokens(false)
+            .userDetailsService(userDetailsService)
+            .authenticationManager(authenticationManager);
     }
 
     @Override
@@ -53,7 +59,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+        var accessTokenConverter = new JwtAccessTokenConverter();
         accessTokenConverter.setSigningKey("estoque");
         return accessTokenConverter;
     }
