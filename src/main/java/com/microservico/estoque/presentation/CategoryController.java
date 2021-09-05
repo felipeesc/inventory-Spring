@@ -1,12 +1,15 @@
 package com.microservico.estoque.presentation;
 
+import com.microservico.estoque.common.RabbitmqConstantes;
 import com.microservico.estoque.domain.Category;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.CategorySerivce;
+import com.microservico.estoque.service.RabbitMQService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import springfox.documentation.annotations.Cacheable;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -19,8 +22,13 @@ public class CategoryController {
     @Autowired
     private CategorySerivce categorySerivce;
 
+    @Autowired
+    private RabbitMQService rabbitMQService;
+
     @GetMapping("/{code}")
+    @Cacheable("category")
     public ResponseEntity<Category> findByCode(@PathVariable Long code) {
+//        rabbitMQService.enviaMensagem(RabbitmqConstantes.QUEUE_CATEGORY, code);
         Optional<Category> categoryReturned = this.categorySerivce.findByCode(code);
         return categoryReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
