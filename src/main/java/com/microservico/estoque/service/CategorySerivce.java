@@ -22,9 +22,6 @@ public class CategorySerivce implements AbstractService<Category> {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
-    private RabbitMQExchange exchange;
-
     @Override
     @RabbitListener(queues = RabbitmqConstantes.QUEUE_CATEGORY)
     public Optional<Category> findByCode(Long code) {
