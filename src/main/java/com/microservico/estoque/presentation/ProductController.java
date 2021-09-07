@@ -1,6 +1,7 @@
 package com.microservico.estoque.presentation;
 
 import com.microservico.estoque.domain.Product;
+import com.microservico.estoque.presentation.openapi.ProductControllerOpenApi;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.ProductSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,35 +17,31 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/produto")
-public class ProductController {
+public class ProductController implements ProductControllerOpenApi {
 
     @Autowired
     private ProductSerivce productSerivce;
 
-    @GetMapping("/{code}")
-    @Cacheable("product")
+    @Override
     public ResponseEntity<Product> findByCode(@PathVariable Long code) {
         Optional<Product> cityReturned = this.productSerivce.findByCode(code);
         return cityReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    @CacheEvict("product")
+    @Override
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product produto) {
         Product product = this.productSerivce.save(produto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(product.getCodigoProduto()).toUri();
         return ResponseEntity.created(uri).body(product);
     }
 
-    @PostMapping("/{code}")
-    @CacheEvict("product")
+    @Override
     public ResponseEntity<Void> deleteProduct(@PathVariable Long code) {
         this.productSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("product.removed", String.valueOf(code))).build();
     }
 
-    @PutMapping("/{code}")
-    @CacheEvict("product")
+    @Override
     public ResponseEntity<Product> editProduct(@Valid @RequestBody Product product) {
         Product productReturned = this.productSerivce.edit(product);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("product.edited.", String.valueOf(productReturned.getCodigoProduto()))).build();
