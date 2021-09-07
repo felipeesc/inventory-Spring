@@ -4,6 +4,7 @@ import com.microservico.estoque.domain.InputItem;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.InputItemSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,7 @@ public class InputItemController {
     }
 
     @PostMapping
+    @CacheEvict("input-item")
     public ResponseEntity<InputItem> createItem(@Valid @RequestBody InputItem item) {
         InputItem inputItem = this.inputItemSerivce.save(item);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(inputItem.getCodigoItemEntrada()).toUri();
@@ -35,12 +37,14 @@ public class InputItemController {
     }
 
     @PostMapping("/{code}")
+    @CacheEvict("input-item")
     public ResponseEntity<Void> deleteItem(@PathVariable Long code) {
         this.inputItemSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("input-item.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
+    @CacheEvict("input-item")
     public ResponseEntity<InputItem> editItem(@Valid @RequestBody InputItem inputItem) {
         InputItem itemReturned = this.inputItemSerivce.edit(inputItem);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("input-item.edited.", String.valueOf(itemReturned.getCodigoItemEntrada()))).build();

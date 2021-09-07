@@ -4,6 +4,7 @@ import com.microservico.estoque.domain.Output;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.OutputSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,7 @@ public class OutputController {
     }
 
     @PostMapping
+    @CacheEvict("output")
     public ResponseEntity<Output> createExit(@Valid @RequestBody Output output) {
         Output exitCreate = this.outputSerivce.save(output);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(exitCreate.getCodigoSaida()).toUri();
@@ -35,12 +37,14 @@ public class OutputController {
     }
 
     @PostMapping("/{code}")
+    @CacheEvict("output")
     public ResponseEntity<Void> deleteExit(@PathVariable Long code) {
         this.outputSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("output.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
+    @CacheEvict("output")
     public ResponseEntity<Output> editExit(@Valid @RequestBody Output output) {
         Output exitReturned = this.outputSerivce.edit(output);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("output.edited.", String.valueOf(exitReturned.getCodigoSaida()))).build();

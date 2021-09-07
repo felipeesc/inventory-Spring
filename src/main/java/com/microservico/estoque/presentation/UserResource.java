@@ -35,7 +35,6 @@ public class UserResource {
         return userReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
     @PostMapping
     public ResponseEntity<User> save(@RequestBody @Valid User user) {
         User userSaved = this.userService.save(user);

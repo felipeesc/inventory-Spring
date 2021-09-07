@@ -4,6 +4,7 @@ import com.microservico.estoque.domain.Input;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.InputSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,7 @@ public class InputController {
     }
 
     @PostMapping
+    @CacheEvict("input")
     public ResponseEntity<Input> createCity(@Valid @RequestBody Input input) {
         Input inputSave = this.inputSerivce.save(input);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(inputSave.getCodigoEntrada()).toUri();
@@ -35,12 +37,14 @@ public class InputController {
     }
 
     @PostMapping("/{code}")
+    @CacheEvict("input")
     public ResponseEntity<Void> deleteCity(@PathVariable Long code) {
         this.inputSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("input.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
+    @CacheEvict("input")
     public ResponseEntity<Input> editCity(@Valid @RequestBody Input input) {
         Input entryReturned = this.inputSerivce.edit(input);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("input.edited.", String.valueOf(entryReturned.getCodigoEntrada()))).build();

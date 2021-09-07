@@ -4,6 +4,7 @@ import com.microservico.estoque.domain.Provider;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.ProviderSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,7 @@ public class ProviderController {
     }
 
     @PostMapping
+    @CacheEvict("provider")
     public ResponseEntity<Provider> createProvider(@Valid @RequestBody Provider provider) {
         Provider save = this.providerSerivce.save(provider);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(save.getCodigoFornecedor()).toUri();
@@ -35,12 +37,14 @@ public class ProviderController {
     }
 
     @PostMapping("/{code}")
+    @CacheEvict("provider")
     public ResponseEntity<Void> deleteProvider(@PathVariable Long code) {
         this.providerSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("provider.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
+    @CacheEvict("provider")
     public ResponseEntity<Provider> editProvider(@Valid @RequestBody Provider provider) {
         Provider providerReturned = this.providerSerivce.edit(provider);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("provider.edited", String.valueOf(providerReturned.getCodigoFornecedor()))).build();

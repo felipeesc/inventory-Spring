@@ -4,6 +4,7 @@ import com.microservico.estoque.domain.Product;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.ProductSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @CacheEvict("product")
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product produto) {
         Product product = this.productSerivce.save(produto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(product.getCodigoProduto()).toUri();
@@ -35,12 +37,14 @@ public class ProductController {
     }
 
     @PostMapping("/{code}")
+    @CacheEvict("product")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long code) {
         this.productSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("product.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
+    @CacheEvict("product")
     public ResponseEntity<Product> editProduct(@Valid @RequestBody Product product) {
         Product productReturned = this.productSerivce.edit(product);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("product.edited.", String.valueOf(productReturned.getCodigoProduto()))).build();

@@ -4,6 +4,7 @@ import com.microservico.estoque.domain.Category;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.CategorySerivce;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,7 @@ public class CategoryController {
     }
 
     @PostMapping
+    @CacheEvict("category")
     public ResponseEntity<Category> createCategory(@Valid @RequestBody Category categoria) {
         Category category = this.categorySerivce.save(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(category.getCodigoCategoria()).toUri();
@@ -35,12 +37,14 @@ public class CategoryController {
     }
 
     @PostMapping("/{code}")
+    @CacheEvict("category")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long code) {
         this.categorySerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("category.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
+    @CacheEvict("category")
     public ResponseEntity<Category> editCategory(@Valid @RequestBody Category category) {
         Category categoryReturned = this.categorySerivce.edit(category);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("category.edited.", String.valueOf(categoryReturned.getCodigoCategoria()))).build();
