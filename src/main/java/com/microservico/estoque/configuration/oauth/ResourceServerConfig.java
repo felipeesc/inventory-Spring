@@ -43,8 +43,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.cors()
                 .and()
                 .authorizeRequests()
-//              .anyRequest().authenticated()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
     }
