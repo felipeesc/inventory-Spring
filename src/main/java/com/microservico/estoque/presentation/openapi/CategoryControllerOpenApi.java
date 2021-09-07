@@ -5,6 +5,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ public interface CategoryControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("category")
+    @PreAuthorize("hasAuthority('')")
     ResponseEntity<Category> findByCode(
             @ApiParam(value = "category id", example = "1", required = true)
                     Long code);
@@ -30,6 +32,7 @@ public interface CategoryControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("category")
+    @PreAuthorize("hasAuthority('')")
     ResponseEntity<Category> createCategory(
             @ApiParam(name = "body", value = "Representation of a new category", required = true)
                     Category category);
@@ -41,6 +44,7 @@ public interface CategoryControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("category")
+    @PreAuthorize("hasAuthority('')")
     ResponseEntity<Void> deleteCategory(
             @ApiParam(value = "category id", example = "1", required = true)
                     Long code);
@@ -52,6 +56,7 @@ public interface CategoryControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("category")
+    @PreAuthorize("hasAuthority('')")
     ResponseEntity<Category> editCategory(
             @ApiParam(name = "body", value = "Representation of a category with new data", required = true)
                     Category category);

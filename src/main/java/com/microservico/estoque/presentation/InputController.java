@@ -1,6 +1,7 @@
 package com.microservico.estoque.presentation;
 
 import com.microservico.estoque.domain.Input;
+import com.microservico.estoque.presentation.openapi.InputControllerOpenApi;
 import com.microservico.estoque.presentation.util.HeaderUtil;
 import com.microservico.estoque.service.InputSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/entrada")
-public class InputController {
+public class InputController implements InputControllerOpenApi {
 
     @Autowired
     private InputSerivce inputSerivce;
@@ -30,7 +31,7 @@ public class InputController {
 
     @PostMapping
     @CacheEvict("input")
-    public ResponseEntity<Input> createCity(@Valid @RequestBody Input input) {
+    public ResponseEntity<Input> createInput(@Valid @RequestBody Input input) {
         Input inputSave = this.inputSerivce.save(input);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(inputSave.getCodigoEntrada()).toUri();
         return ResponseEntity.created(uri).body(inputSave);
@@ -38,14 +39,14 @@ public class InputController {
 
     @PostMapping("/{code}")
     @CacheEvict("input")
-    public ResponseEntity<Void> deleteCity(@PathVariable Long code) {
+    public ResponseEntity<Void> deleteInput(@PathVariable Long code) {
         this.inputSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("input.removed", String.valueOf(code))).build();
     }
 
     @PutMapping("/{code}")
     @CacheEvict("input")
-    public ResponseEntity<Input> editCity(@Valid @RequestBody Input input) {
+    public ResponseEntity<Input> editInput(@Valid @RequestBody Input input) {
         Input entryReturned = this.inputSerivce.edit(input);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("input.edited.", String.valueOf(entryReturned.getCodigoEntrada()))).build();
     }

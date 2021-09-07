@@ -19,7 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "security", name = "user")
+@Table(schema = "estoque", name = "user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

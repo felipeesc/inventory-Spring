@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Entity
-@Table(schema = "security", name = "authority")
+@Table(schema = "estoque", name = "authority")
 public final class Authority implements Serializable {
 
     private static final long serialVersionUID = 1L;
