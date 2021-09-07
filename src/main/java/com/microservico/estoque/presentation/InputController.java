@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import springfox.documentation.annotations.Cacheable;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -19,6 +20,7 @@ public class InputController {
     @Autowired
     private InputSerivce inputSerivce;
 
+    @Cacheable("input")
     @GetMapping("/{code}")
     public ResponseEntity<Input> findByCode(@PathVariable Long code) {
         Optional<Input> entryReturned = this.inputSerivce.findByCode(code);

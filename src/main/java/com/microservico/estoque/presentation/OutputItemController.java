@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import springfox.documentation.annotations.Cacheable;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -20,6 +21,7 @@ public class OutputItemController {
     private OutputItemSerivce itemSaidaSerivce;
 
     @GetMapping("/{code}")
+    @Cacheable("output-item")
     public ResponseEntity<OutputItem> findByCode(@PathVariable Long code) {
         Optional<OutputItem> itemReturned = this.itemSaidaSerivce.findByCode(code);
         return itemReturned.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
