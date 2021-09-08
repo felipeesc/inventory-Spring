@@ -21,7 +21,7 @@ public interface StoreControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("store")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_STORE')")
     ResponseEntity<Store> findByCode(
             @ApiParam(value = "store id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface StoreControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("store")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_STORE')")
     ResponseEntity<Store> createStore(
             @ApiParam(name = "body", value = "Representation of a new store", required = true)
                     Store store);
@@ -44,7 +44,7 @@ public interface StoreControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("store")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_STORE')")
     ResponseEntity<Void> deleteStore(
             @ApiParam(value = "store id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface StoreControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("store")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_STORE')")
     ResponseEntity<Store> editStore(
             @ApiParam(name = "body", value = "Representation of a store with new data", required = true)
                     Store store);

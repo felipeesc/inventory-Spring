@@ -21,7 +21,7 @@ public interface TransportControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("transport")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_TRANSPORT')")
     ResponseEntity<Transport> findByCode(
             @ApiParam(value = "transport id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface TransportControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("transport")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_TRANSPORT')")
     ResponseEntity<Transport> createTransport(
             @ApiParam(name = "body", value = "Representation of a new transport", required = true)
                     Transport transport);
@@ -44,7 +44,7 @@ public interface TransportControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("transport")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_TRANSPORT')")
     ResponseEntity<Void> deleteTransport(
             @ApiParam(value = "transport id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface TransportControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("transport")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_TRANSPORT')")
     ResponseEntity<Transport> editTransport(
             @ApiParam(name = "body", value = "Representation of a transport with new data", required = true)
                     Transport transport);

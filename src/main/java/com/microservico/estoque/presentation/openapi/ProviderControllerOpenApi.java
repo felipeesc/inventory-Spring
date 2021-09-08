@@ -21,7 +21,7 @@ public interface ProviderControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("provider")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_PROVIDER')")
     ResponseEntity<Provider> findByCode(
             @ApiParam(value = "provider id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface ProviderControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("provider")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_PROVIDER')")
     ResponseEntity<Provider> createProvider(
             @ApiParam(name = "body", value = "Representation of a new provider", required = true)
                     Provider provider);
@@ -44,7 +44,7 @@ public interface ProviderControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("provider")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_PROVIDER')")
     ResponseEntity<Void> deleteProvider(
             @ApiParam(value = "provider id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface ProviderControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("provider")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_PROVIDER')")
     ResponseEntity<Provider> editProvider(
             @ApiParam(name = "body", value = "Representation of a provider with new data", required = true)
                     Provider provider);

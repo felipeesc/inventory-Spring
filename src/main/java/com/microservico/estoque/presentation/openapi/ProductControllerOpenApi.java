@@ -21,7 +21,7 @@ public interface ProductControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("product")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_PRODUCT')")
     ResponseEntity<Product> findByCode(
             @ApiParam(value = "product id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface ProductControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("product")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_PRODUCT')")
     ResponseEntity<Product> createProduct(
             @ApiParam(name = "body", value = "Representation of a new product", required = true)
                     Product product);
@@ -44,7 +44,7 @@ public interface ProductControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("product")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_PRODUCT')")
     ResponseEntity<Void> deleteProduct(
             @ApiParam(value = "product id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface ProductControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("product")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_PRODUCT')")
     ResponseEntity<Product> editProduct(
             @ApiParam(name = "body", value = "Representation of a product with new data", required = true)
                     Product product);
