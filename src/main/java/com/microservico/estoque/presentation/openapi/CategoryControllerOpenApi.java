@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.Category;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface CategoryControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("category")
-    @PreAuthorize("hasAuthority('CONSULT_CATEGORY')")
+    @CheckSecurity.Category.CanConsult
     ResponseEntity<Category> findByCode(
             @ApiParam(value = "category id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface CategoryControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("category")
-    @PreAuthorize("hasAuthority('REGISTER_CATEGORY')")
+    @CheckSecurity.Category.CanRegister
     ResponseEntity<Category> createCategory(
             @ApiParam(name = "body", value = "Representation of a new category", required = true)
                     Category category);
@@ -44,7 +45,7 @@ public interface CategoryControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("category")
-    @PreAuthorize("hasAuthority('REMOVE_CATEGORY')")
+    @CheckSecurity.Category.CanRemove
     ResponseEntity<Void> deleteCategory(
             @ApiParam(value = "category id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface CategoryControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("category")
-    @PreAuthorize("hasAuthority('EDIT_CATEGORY')")
+    @CheckSecurity.Category.CanEdit
     ResponseEntity<Category> editCategory(
             @ApiParam(name = "body", value = "Representation of a category with new data", required = true)
                     Category category);

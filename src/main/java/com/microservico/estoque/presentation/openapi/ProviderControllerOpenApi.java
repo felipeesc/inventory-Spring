@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.Provider;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface ProviderControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("provider")
-    @PreAuthorize("hasAuthority('CONSULT_PROVIDER')")
+    @CheckSecurity.Provider.CanConsult
     ResponseEntity<Provider> findByCode(
             @ApiParam(value = "provider id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface ProviderControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("provider")
-    @PreAuthorize("hasAuthority('REGISTER_PROVIDER')")
+    @CheckSecurity.Provider.CanRegister
     ResponseEntity<Provider> createProvider(
             @ApiParam(name = "body", value = "Representation of a new provider", required = true)
                     Provider provider);
@@ -44,7 +45,7 @@ public interface ProviderControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("provider")
-    @PreAuthorize("hasAuthority('REMOVE_PROVIDER')")
+    @CheckSecurity.Provider.CanRemove
     ResponseEntity<Void> deleteProvider(
             @ApiParam(value = "provider id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface ProviderControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("provider")
-    @PreAuthorize("hasAuthority('EDIT_PROVIDER')")
+    @CheckSecurity.Provider.CanEdit
     ResponseEntity<Provider> editProvider(
             @ApiParam(name = "body", value = "Representation of a provider with new data", required = true)
                     Provider provider);

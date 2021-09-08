@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.Store;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface StoreControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("store")
-    @PreAuthorize("hasAuthority('CONSULT_STORE')")
+    @CheckSecurity.Store.CanConsult
     ResponseEntity<Store> findByCode(
             @ApiParam(value = "store id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface StoreControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("store")
-    @PreAuthorize("hasAuthority('REGISTER_STORE')")
+    @CheckSecurity.Store.CanRegister
     ResponseEntity<Store> createStore(
             @ApiParam(name = "body", value = "Representation of a new store", required = true)
                     Store store);
@@ -44,7 +45,7 @@ public interface StoreControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("store")
-    @PreAuthorize("hasAuthority('REMOVE_STORE')")
+    @CheckSecurity.Store.CanRemove
     ResponseEntity<Void> deleteStore(
             @ApiParam(value = "store id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface StoreControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("store")
-    @PreAuthorize("hasAuthority('EDIT_STORE')")
+    @CheckSecurity.Store.CanEdit
     ResponseEntity<Store> editStore(
             @ApiParam(name = "body", value = "Representation of a store with new data", required = true)
                     Store store);

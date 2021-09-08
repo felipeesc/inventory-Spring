@@ -56,7 +56,7 @@ public interface InputItemControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("input-item")
-    @PreAuthorize("hasAuthority('REGISTER_INPUT_ITEM')")
+    @PreAuthorize("hasAuthority('EDIT_INPUT_ITEM')")
     ResponseEntity<InputItem> editItem(
             @ApiParam(name = "body", value = "Representation of a Input Item with new data", required = true)
                     InputItem inputItem);

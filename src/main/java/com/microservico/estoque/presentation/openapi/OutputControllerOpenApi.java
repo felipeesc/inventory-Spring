@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.Output;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface OutputControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("output")
-    @PreAuthorize("hasAuthority('CONSULT_OUTPUT')")
+    @CheckSecurity.Output.CanConsult
     ResponseEntity<Output> findByCode(
             @ApiParam(value = "output id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface OutputControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("output")
-    @PreAuthorize("hasAuthority('REGISTER_OUTPUT')")
+    @CheckSecurity.Output.CanRegister
     ResponseEntity<Output> createOutput(
             @ApiParam(name = "body", value = "Representation of a new output", required = true)
                     Output output);
@@ -44,7 +45,7 @@ public interface OutputControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("output")
-    @PreAuthorize("hasAuthority('REMOVE_OUTPUT')")
+    @CheckSecurity.Output.CanRemove
     ResponseEntity<Void> deleteOutput(
             @ApiParam(value = "output id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface OutputControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("output")
-    @PreAuthorize("hasAuthority('EDIT_OUTPUT')")
+    @CheckSecurity.Output.CanEdit
     ResponseEntity<Output> editOutput(
             @ApiParam(name = "body", value = "Representation of a output with new data", required = true)
                     Output output);

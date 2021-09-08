@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.OutputItem;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface OutputItemControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("outputItem")
-    @PreAuthorize("hasAuthority('CONSULT_OUTPUT_ITEM')")
+    @CheckSecurity.OutputItem.CanConsult
     ResponseEntity<OutputItem> findByCode(
             @ApiParam(value = "output item id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface OutputItemControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("outputItem")
-    @PreAuthorize("hasAuthority('REGISTER_OUTPUT_ITEM')")
+    @CheckSecurity.OutputItem.CanRegister
     ResponseEntity<OutputItem> createOutputItem(
             @ApiParam(name = "body", value = "Representation of a new output item", required = true)
                     OutputItem outputItem);
@@ -44,7 +45,7 @@ public interface OutputItemControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("outputItem")
-    @PreAuthorize("hasAuthority('REMOVE_OUTPUT_ITEM')")
+    @CheckSecurity.OutputItem.CanRemove
     ResponseEntity<Void> deleteOutputItem(
             @ApiParam(value = "output item id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface OutputItemControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("outputItem")
-    @PreAuthorize("hasAuthority('EDIT_OUTPUT_ITEM')")
+    @CheckSecurity.OutputItem.CanEdit
     ResponseEntity<OutputItem> editOutputItem(
             @ApiParam(name = "body", value = "Representation of a output item with new data", required = true)
                     OutputItem outputItem);

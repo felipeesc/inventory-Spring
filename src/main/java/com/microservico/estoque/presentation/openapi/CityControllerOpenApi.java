@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.City;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface CityControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("city")
-    @PreAuthorize("hasAuthority('CONSULT_CITY')")
+    @CheckSecurity.City.CanConsult
     ResponseEntity<City> findByCode(
             @ApiParam(value = "city id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface CityControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("city")
-    @PreAuthorize("hasAuthority('REGISTER_CITY')")
+    @@CheckSecurity.City.CanRegister
     ResponseEntity<City> createCity(
             @ApiParam(name = "body", value = "Representation of a new city", required = true)
                     City city);
@@ -44,7 +45,7 @@ public interface CityControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("city")
-    @PreAuthorize("hasAuthority('REMOVE_CITY')")
+    @CheckSecurity.City.CanRemove
     ResponseEntity<Void> deleteCity(
             @ApiParam(value = "city id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface CityControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("city")
-    @PreAuthorize("hasAuthority('EDIT_CITY')")
+    @CheckSecurity.City.CanEdit
     ResponseEntity<City> editCity(
             @ApiParam(name = "body", value = "Representation of a city with new data", required = true)
                     City city);

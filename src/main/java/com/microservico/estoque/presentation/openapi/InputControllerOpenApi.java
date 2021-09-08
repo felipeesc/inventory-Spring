@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.Input;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface InputControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("input")
-    @PreAuthorize("hasAuthority('CONSULT_INPUT')")
+    @CheckSecurity.Input.CanConsult
     ResponseEntity<Input> findByCode(
             @ApiParam(value = "Input id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface InputControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("input")
-    @PreAuthorize("hasAuthority('REGISTER_INPUT')")
+    @CheckSecurity.Input.CanRegister
     ResponseEntity<Input> createInput(
             @ApiParam(name = "body", value = "Representation of a new Input", required = true)
                     Input input);
@@ -44,7 +45,7 @@ public interface InputControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("input")
-    @PreAuthorize("hasAuthority('REMOVE_INPUT')")
+    @CheckSecurity.Input.CanRemove
     ResponseEntity<Void> deleteInput(
             @ApiParam(value = "Input id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface InputControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("input")
-    @PreAuthorize("hasAuthority('EDIT_INPUT')")
+    @CheckSecurity.Input.CanEdit
     ResponseEntity<Input> editInput(
             @ApiParam(name = "body", value = "Representation of a Input with new data", required = true)
                     Input input);

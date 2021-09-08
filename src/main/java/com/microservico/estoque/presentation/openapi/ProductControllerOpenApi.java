@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.Product;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface ProductControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("product")
-    @PreAuthorize("hasAuthority('CONSULT_PRODUCT')")
+    @CheckSecurity.Product.CanConsult
     ResponseEntity<Product> findByCode(
             @ApiParam(value = "product id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface ProductControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("product")
-    @PreAuthorize("hasAuthority('REGISTER_PRODUCT')")
+    @CheckSecurity.Product.CanRegister
     ResponseEntity<Product> createProduct(
             @ApiParam(name = "body", value = "Representation of a new product", required = true)
                     Product product);
@@ -44,7 +45,7 @@ public interface ProductControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("product")
-    @PreAuthorize("hasAuthority('REMOVE_PRODUCT')")
+    @CheckSecurity.Product.CanRemove
     ResponseEntity<Void> deleteProduct(
             @ApiParam(value = "product id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface ProductControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("product")
-    @PreAuthorize("hasAuthority('EDIT_PRODUCT')")
+    @CheckSecurity.Product.CanEdit
     ResponseEntity<Product> editProduct(
             @ApiParam(name = "body", value = "Representation of a product with new data", required = true)
                     Product product);

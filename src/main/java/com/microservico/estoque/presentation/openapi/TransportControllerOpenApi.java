@@ -1,5 +1,6 @@
 package com.microservico.estoque.presentation.openapi;
 
+import com.microservico.estoque.configuration.oauth.CheckSecurity;
 import com.microservico.estoque.domain.Transport;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.parsing.Problem;
@@ -21,7 +22,7 @@ public interface TransportControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("transport")
-    @PreAuthorize("hasAuthority('CONSULT_TRANSPORT')")
+    @CheckSecurity.Transport.CanConsult
     ResponseEntity<Transport> findByCode(
             @ApiParam(value = "transport id", example = "1", required = true)
                     Long code);
@@ -32,7 +33,7 @@ public interface TransportControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("transport")
-    @PreAuthorize("hasAuthority('REGISTER_TRANSPORT')")
+    @CheckSecurity.Transport.CanRegister
     ResponseEntity<Transport> createTransport(
             @ApiParam(name = "body", value = "Representation of a new transport", required = true)
                     Transport transport);
@@ -44,7 +45,7 @@ public interface TransportControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("transport")
-    @PreAuthorize("hasAuthority('REMOVE_TRANSPORT')")
+    @CheckSecurity.Transport.CanRemove
     ResponseEntity<Void> deleteTransport(
             @ApiParam(value = "transport id", example = "1", required = true)
                     Long code);
@@ -56,7 +57,7 @@ public interface TransportControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("transport")
-    @PreAuthorize("hasAuthority('EDIT_TRANSPORT')")
+    @CheckSecurity.Transport.CanEdit
     ResponseEntity<Transport> editTransport(
             @ApiParam(name = "body", value = "Representation of a transport with new data", required = true)
                     Transport transport);
