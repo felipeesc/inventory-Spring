@@ -33,7 +33,7 @@ public interface CityControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("city")
-    @@CheckSecurity.City.CanRegister
+    @CheckSecurity.City.CanRegister
     ResponseEntity<City> createCity(
             @ApiParam(name = "body", value = "Representation of a new city", required = true)
                     City city);
