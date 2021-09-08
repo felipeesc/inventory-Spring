@@ -21,7 +21,7 @@ public interface CategoryControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("category")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_CATEGORY')")
     ResponseEntity<Category> findByCode(
             @ApiParam(value = "category id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface CategoryControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("category")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_CATEGORY')")
     ResponseEntity<Category> createCategory(
             @ApiParam(name = "body", value = "Representation of a new category", required = true)
                     Category category);
@@ -44,7 +44,7 @@ public interface CategoryControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("category")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_CATEGORY')")
     ResponseEntity<Void> deleteCategory(
             @ApiParam(value = "category id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface CategoryControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("category")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_CATEGORY')")
     ResponseEntity<Category> editCategory(
             @ApiParam(name = "body", value = "Representation of a category with new data", required = true)
                     Category category);

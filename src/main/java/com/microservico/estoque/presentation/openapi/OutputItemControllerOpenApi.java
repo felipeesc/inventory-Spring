@@ -21,7 +21,7 @@ public interface OutputItemControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("outputItem")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_OUTPUT_ITEM')")
     ResponseEntity<OutputItem> findByCode(
             @ApiParam(value = "output item id", example = "1", required = true)
                     Long code);
@@ -32,8 +32,8 @@ public interface OutputItemControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("outputItem")
-    @PreAuthorize("hasAuthority('')")
-    ResponseEntity<OutputItem> createItemExit(
+    @PreAuthorize("hasAuthority('REGISTER_OUTPUT_ITEM')")
+    ResponseEntity<OutputItem> createOutputItem(
             @ApiParam(name = "body", value = "Representation of a new output item", required = true)
                     OutputItem outputItem);
 
@@ -44,8 +44,8 @@ public interface OutputItemControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("outputItem")
-    @PreAuthorize("hasAuthority('')")
-    ResponseEntity<Void> deleteItemExit(
+    @PreAuthorize("hasAuthority('REMOVE_OUTPUT_ITEM')")
+    ResponseEntity<Void> deleteOutputItem(
             @ApiParam(value = "output item id", example = "1", required = true)
                     Long code);
 
@@ -56,8 +56,8 @@ public interface OutputItemControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("outputItem")
-    @PreAuthorize("hasAuthority('')")
-    ResponseEntity<OutputItem> editItemExit(
+    @PreAuthorize("hasAuthority('EDIT_OUTPUT_ITEM')")
+    ResponseEntity<OutputItem> editOutputItem(
             @ApiParam(name = "body", value = "Representation of a output item with new data", required = true)
                     OutputItem outputItem);
 }

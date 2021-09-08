@@ -21,7 +21,7 @@ public interface CityControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("city")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_CITY')")
     ResponseEntity<City> findByCode(
             @ApiParam(value = "city id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface CityControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("city")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_CITY')")
     ResponseEntity<City> createCity(
             @ApiParam(name = "body", value = "Representation of a new city", required = true)
                     City city);
@@ -44,7 +44,7 @@ public interface CityControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("city")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_CITY')")
     ResponseEntity<Void> deleteCity(
             @ApiParam(value = "city id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface CityControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("city")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_CITY')")
     ResponseEntity<City> editCity(
             @ApiParam(name = "body", value = "Representation of a city with new data", required = true)
                     City city);

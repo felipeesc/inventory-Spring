@@ -29,20 +29,20 @@ public class OutputItemController implements OutputItemControllerOpenApi {
     }
 
     @Override
-    public ResponseEntity<OutputItem> createItemExit(@Valid @RequestBody OutputItem item) {
+    public ResponseEntity<OutputItem> createOutputItem(@Valid @RequestBody OutputItem item) {
         OutputItem outputItem = this.itemSaidaSerivce.save(item);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{code}").buildAndExpand(outputItem.getCodigoItemSaida()).toUri();
         return ResponseEntity.created(uri).body(outputItem);
     }
 
     @Override
-    public ResponseEntity<Void> deleteItemExit(@PathVariable Long code) {
+    public ResponseEntity<Void> deleteOutputItem(@PathVariable Long code) {
         this.itemSaidaSerivce.delete(code);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("output-item.removed", String.valueOf(code))).build();
     }
 
     @Override
-    public ResponseEntity<OutputItem> editItemExit(@Valid @RequestBody OutputItem outputItem) {
+    public ResponseEntity<OutputItem> editOutputItem(@Valid @RequestBody OutputItem outputItem) {
         OutputItem itemReturned = this.itemSaidaSerivce.edit(outputItem);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("output-item.edited.", String.valueOf(itemReturned.getCodigoItemSaida()))).build();
     }

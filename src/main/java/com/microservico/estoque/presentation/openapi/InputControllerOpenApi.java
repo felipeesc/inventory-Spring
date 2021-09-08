@@ -21,7 +21,7 @@ public interface InputControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("input")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_INPUT')")
     ResponseEntity<Input> findByCode(
             @ApiParam(value = "Input id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface InputControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("input")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_INPUT')")
     ResponseEntity<Input> createInput(
             @ApiParam(name = "body", value = "Representation of a new Input", required = true)
                     Input input);
@@ -44,7 +44,7 @@ public interface InputControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("input")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_INPUT')")
     ResponseEntity<Void> deleteInput(
             @ApiParam(value = "Input id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface InputControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("input")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_INPUT')")
     ResponseEntity<Input> editInput(
             @ApiParam(name = "body", value = "Representation of a Input with new data", required = true)
                     Input input);

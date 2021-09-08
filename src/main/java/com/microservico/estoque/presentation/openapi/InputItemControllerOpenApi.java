@@ -21,7 +21,7 @@ public interface InputItemControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("input-item")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_INPUT_ITEM')")
     ResponseEntity<InputItem> findByCode(
             @ApiParam(value = "Input Item id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface InputItemControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("input-item")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_INPUT_ITEM')")
     ResponseEntity<InputItem> createItem(
             @ApiParam(name = "body", value = "Representation of a new Input Item", required = true)
                     InputItem inputItem);
@@ -44,7 +44,7 @@ public interface InputItemControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("input-item")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_INPUT_ITEM')")
     ResponseEntity<Void> deleteItem(
             @ApiParam(value = "Input Item id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface InputItemControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("input-item")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_INPUT_ITEM')")
     ResponseEntity<InputItem> editItem(
             @ApiParam(name = "body", value = "Representation of a Input Item with new data", required = true)
                     InputItem inputItem);

@@ -21,7 +21,7 @@ public interface OutputControllerOpenApi {
     })
     @GetMapping("/{code}")
     @Cacheable("output")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('CONSULT_OUTPUT')")
     ResponseEntity<Output> findByCode(
             @ApiParam(value = "output id", example = "1", required = true)
                     Long code);
@@ -32,7 +32,7 @@ public interface OutputControllerOpenApi {
     })
     @PostMapping
     @CacheEvict("output")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REGISTER_OUTPUT')")
     ResponseEntity<Output> createOutput(
             @ApiParam(name = "body", value = "Representation of a new output", required = true)
                     Output output);
@@ -44,7 +44,7 @@ public interface OutputControllerOpenApi {
     })
     @PostMapping("/{code}")
     @CacheEvict("output")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('REMOVE_OUTPUT')")
     ResponseEntity<Void> deleteOutput(
             @ApiParam(value = "output id", example = "1", required = true)
                     Long code);
@@ -56,7 +56,7 @@ public interface OutputControllerOpenApi {
     })
     @PutMapping("/{code}")
     @CacheEvict("output")
-    @PreAuthorize("hasAuthority('')")
+    @PreAuthorize("hasAuthority('EDIT_OUTPUT')")
     ResponseEntity<Output> editOutput(
             @ApiParam(name = "body", value = "Representation of a output with new data", required = true)
                     Output output);
