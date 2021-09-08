@@ -23,7 +23,6 @@ public class CategorySerivce implements AbstractService<Category> {
     private CategoryRepository categoryRepository;
 
     @Override
-    @RabbitListener(queues = RabbitmqConstantes.QUEUE_CATEGORY)
     public Optional<Category> findByCode(Long code) {
         return this.categoryRepository.findById(code);
     }
