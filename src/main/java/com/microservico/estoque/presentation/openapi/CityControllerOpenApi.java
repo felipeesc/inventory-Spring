@@ -9,9 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.Cacheable;
 
 @Api(tags = "City")
+@RestController
 public interface CityControllerOpenApi {
 
     @ApiOperation("search city by id")
@@ -31,7 +33,7 @@ public interface CityControllerOpenApi {
             @ApiResponse(code = 201, message = "registered city"),
     })
     @PostMapping
-    @CacheEvict("city")
+//    @CacheEvict("city")
     @CheckSecurity.City.CanRegister
     ResponseEntity<City> createCity(
             @ApiParam(name = "body", value = "Representation of a new city", required = true)

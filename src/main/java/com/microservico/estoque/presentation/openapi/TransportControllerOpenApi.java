@@ -32,7 +32,7 @@ public interface TransportControllerOpenApi {
             @ApiResponse(code = 201, message = "registered transport"),
     })
     @PostMapping
-    @CacheEvict("transport")
+//    @CacheEvict("transport")
     @CheckSecurity.Transport.CanRegister
     ResponseEntity<Transport> createTransport(
             @ApiParam(name = "body", value = "Representation of a new transport", required = true)

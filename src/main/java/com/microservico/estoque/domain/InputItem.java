@@ -29,8 +29,7 @@ public class InputItem implements Serializable {
     @Column(name = "codigo_produto")
     private List<Product> products;
 
-    @OneToOne
-    @JoinColumn(name = "itemEntrada")
+    @OneToOne(mappedBy = "inputItem")
     private Input input;
 
     private String lote;

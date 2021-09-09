@@ -43,6 +43,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.cors()
                 .and()
                 .authorizeRequests()
+                .antMatchers(
+                        " /v2 /api-docs " ,
+                        " /swagger-resources / ** " ,
+                        " /swagger-ui.html " ,
+                        " /webjars / ** " ,
+                        " /swagger.json "
+                )
+                .permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();

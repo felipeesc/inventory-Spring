@@ -30,7 +30,8 @@ public class Input implements Serializable {
     @Column(name = "codigo_transportadora")
     private List<Transport> transports;
 
-    @OneToOne(mappedBy = "input")
+    @OneToOne
+    @JoinColumn(name =  "input")
     private InputItem inputItem;
 
     @Column(name = "data_pedido")
